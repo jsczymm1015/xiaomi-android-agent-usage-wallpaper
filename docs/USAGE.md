@@ -105,3 +105,13 @@ python3 desktop/pull_snapshot.py --url "https://stats.example.com/usage-latest.j
 | 覆盖安装签名不匹配 | 自行构建和 Release 可能签名不同；先确认数据迁移方案，不直接卸载绕过。 |
 
 [格式说明](FEATURES.md) · [兼容性](COMPATIBILITY.md) · [Mac 开发](MACOS.md)
+
+## 随包的 Git 代码拉取脚本
+
+工具包包含 `desktop/pull_repository.py`。若需要定时拉取代码，先用自己的 Git 账号与凭据管理器克隆目标代码仓库，再运行：
+
+```bash
+python3 desktop/pull_repository.py --repo-dir /path/to/your-code-repo
+```
+
+脚本在电脑执行，只下载并快进到当前分支的远端版本；不执行仓库代码。默认读取该检出的 `origin`，也可用 `--remote`、`--branch` 指定已配置的远端和当前分支。它会拒绝本地改动、分歧、未推送提交和包含凭据的远端 URL。启用 Git LFS、自定义内容过滤器或外部文件监视器的检出需手动拉取。需要重复拉取时，由你授权的调度器按所需周期执行此命令。手机的后台任务负责拉取统计 JSON。

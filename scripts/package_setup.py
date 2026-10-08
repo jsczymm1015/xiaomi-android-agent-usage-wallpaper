@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FILES = (
     'desktop/export_usage.py', 'desktop/runtime_paths.py',
     'desktop/snapshot_schema.py', 'desktop/publish_snapshot.py', 'desktop/pull_snapshot.py',
+    'desktop/pull_repository.py',
     'docs/USAGE.md', 'docs/REPOSITORY_SETUP.md', 'docs/FEATURES.md',
     'docs/COMPATIBILITY.md', 'docs/MACOS.md', 'docs/VERIFICATION.md', 'docs/SCREENSHOTS.md',
     'docs/screenshots/theme-m5.png', 'docs/screenshots/theme-l1d.png',
