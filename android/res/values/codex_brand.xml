@@ -1,0 +1,4 @@
+<resources>
+  <string name="codex_app_name">CodeX</string>
+  <color name="codex_icon_background">#191919</color>
+</resources>

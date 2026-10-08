@@ -1,0 +1,30 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="local.codex.wallpapers" android:versionCode="29" android:versionName="0.29-portable">
+  <uses-sdk android:minSdkVersion="30" android:targetSdkVersion="35" />
+  <uses-permission android:name="android.permission.SET_WALLPAPER" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+  <queries><package android:name="com.openai.chatgpt"/><intent><action android:name="android.service.wallpaper.WallpaperService"/></intent></queries>
+  <application android:label="@string/codex_app_name" android:icon="@mipmap/codex_launcher" android:roundIcon="@mipmap/codex_launcher" android:theme="@style/CodeXTheme" android:allowBackup="false" android:debuggable="false">
+    <activity android:name=".GuideActivity" android:exported="false" />
+    <activity android:name=".UsageCloudActivity" android:exported="true" />
+    <receiver android:name=".UsageCloudScheduleReceiver" android:exported="false"><intent-filter><action android:name="android.intent.action.MY_PACKAGE_REPLACED"/><action android:name="android.intent.action.BOOT_COMPLETED"/></intent-filter></receiver>
+    <service android:name=".UsageCloudJob" android:exported="true" android:permission="android.permission.BIND_JOB_SERVICE"/>
+    <provider android:name=".UsageStoreProvider" android:authorities="local.codex.wallpapers.usage" android:exported="false" android:process=":widgetProvider"/>
+    <activity android:name=".UsageWidgetConfigActivity" android:exported="true"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/></intent-filter><intent-filter><action android:name="android.intent.action.VIEW"/><category android:name="android.intent.category.DEFAULT"/><category android:name="android.intent.category.BROWSABLE"/><data android:scheme="codexusage" android:host="widget" android:path="/edit"/></intent-filter></activity>
+    <receiver android:name=".UsageWidgetProvider" android:process=":widgetProvider" android:exported="true" android:label="@string/usage_widget_blank_label"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter><meta-data android:name="android.appwidget.provider" android:resource="@xml/usage_widget_info"/></receiver>
+    <service android:name=".UsagePageService" android:label="Codex 用量页读取" android:exported="true" android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"><intent-filter><action android:name="android.accessibilityservice.AccessibilityService"/></intent-filter><meta-data android:name="android.accessibilityservice" android:resource="@xml/usage_accessibility"/></service>
+    <activity android:name=".MainActivity" android:exported="true" android:resizeableActivity="true">
+      <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+    </activity>
+    <service android:name=".CharacterWallpaper" android:label="M5 · 午后桌面" android:permission="android.permission.BIND_WALLPAPER" android:exported="true">
+      <intent-filter><action android:name="android.service.wallpaper.WallpaperService"/></intent-filter>
+      <meta-data android:name="android.service.wallpaper" android:resource="@xml/wallpaper" />
+    </service>
+    <service android:name=".LockWallpaper" android:label="M5 · 月夜锁屏" android:permission="android.permission.BIND_WALLPAPER" android:exported="true">
+      <intent-filter><action android:name="android.service.wallpaper.WallpaperService"/></intent-filter>
+      <meta-data android:name="android.service.wallpaper" android:resource="@xml/wallpaper" />
+    </service>
+  </application>
+</manifest>

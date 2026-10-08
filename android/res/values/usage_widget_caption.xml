@@ -1,0 +1,4 @@
+<resources>
+  <!-- Nonempty invisible label prevents launcher fallback to application name. -->
+  <string name="usage_widget_blank_label">\u200B</string>
+</resources>

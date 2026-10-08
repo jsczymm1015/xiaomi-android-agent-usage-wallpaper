@@ -1,0 +1,118 @@
+[
+  {
+    "path": "android/assets/L1D-02-aod-accessory-v2.png",
+    "sha256": "cc92f5bb6f723b30566b351e3d87bf568cc3d164656c7b295977e38ae0fa567b"
+  },
+  {
+    "path": "android/assets/L1D-02-home-accessory-v2.png",
+    "sha256": "ce6375504247c552b8ce2b242ec9af117bc254014ad806167eea2d553894bbcc"
+  },
+  {
+    "path": "android/assets/L1D-02-lock-accessory-v2.png",
+    "sha256": "545aa20a7ec5aa307db2db23f87fc40e1a963b54f6837eb5967c005c2f6c9449"
+  },
+  {
+    "path": "android/assets/L1D-02-rear-accessory-v2.png",
+    "sha256": "8a46fb8e51f70c443889bbbad5aa52299550acd1d4a4614a21ec893030eca1b6"
+  },
+  {
+    "path": "android/assets/L3D-01-aod-accessory-v2.png",
+    "sha256": "8eedd8c137d06fb7f942b6f9c887ee7bcd4ea66b11b06a151113b25e3a80a02f"
+  },
+  {
+    "path": "android/assets/L3D-01-home-accessory-v2.png",
+    "sha256": "268d54521325db3c42399cf77b69136564dfd381dad41f1dcf7daf874f9d0ffc"
+  },
+  {
+    "path": "android/assets/L3D-01-lock-accessory-v2.png",
+    "sha256": "ab5c37470852467a2cbbf2992ee8d004e76d752ede61fe6f9b0e9c3ab1e7036a"
+  },
+  {
+    "path": "android/assets/L3D-01-rear-accessory-v2.png",
+    "sha256": "664e538bee3ebd51e18c3f9d82c4a4fd05084d9b4d0928960119f045cc662a87"
+  },
+  {
+    "path": "android/assets/M5-B-aod-accessory-v2.png",
+    "sha256": "d36abf6a3f9d84e3e073f8f69f6954edd1c10a4e0e792a5b8410524fc00fa546"
+  },
+  {
+    "path": "android/assets/M5-B-aod.png",
+    "sha256": "67fa6f0c8cc873518c8ed28055d34ac326c39032915b3286d955cc507f8db127"
+  },
+  {
+    "path": "android/assets/M5-B-background.png",
+    "sha256": "ea42bc2e9ed199acb239932d498eac6a657a67896a361bc37ee0e1c3c3a394da"
+  },
+  {
+    "path": "android/assets/M5-B-full.png",
+    "sha256": "867ae112bec117e071a8503d9e49c712211554438889bb6bf54e3d9a2012d76d"
+  },
+  {
+    "path": "android/assets/M5-B-lock-background.png",
+    "sha256": "de46b54a99c552ffc4613c97b5e9d067fc725eaa00b929397597a538cd9ab0fa"
+  },
+  {
+    "path": "android/assets/M5-B-lock-full.png",
+    "sha256": "e57eafcc9c957961d5cb93a62ae78a07b3017bbcab2044d5b650b087cc408945"
+  },
+  {
+    "path": "android/assets/M5-B-rear-background.png",
+    "sha256": "70b600a6c807d3f86b1250c0d4378962a26248283491cc49d33bf4126d13222d"
+  },
+  {
+    "path": "android/assets/chatgpt-brooch-v2.png",
+    "sha256": "2591646cde41aab9cdcaf347bd8bbafd8cc12e3596db89036d46b114e26c3b47"
+  },
+  {
+    "path": "android/assets/setup/agent-tools.zip",
+    "sha256": "5052392589716057a0fc0f12151afec1ebdaad14bf862c73327672bc4457890d"
+  },
+  {
+    "path": "android/assets/widget/L1D-02-high.png",
+    "sha256": "19c85b060ad250da28df443e7c06f196f6434cee4f9abcef9af2c009ce42e9e5"
+  },
+  {
+    "path": "android/assets/widget/L1D-02-low.png",
+    "sha256": "bfa28ac65d07392d461847d52f71ac8a3bfaa051944ca5822661183da90b7a1a"
+  },
+  {
+    "path": "android/assets/widget/L1D-02-medium.png",
+    "sha256": "cc92f5bb6f723b30566b351e3d87bf568cc3d164656c7b295977e38ae0fa567b"
+  },
+  {
+    "path": "android/assets/widget/L1D-02-motion.png",
+    "sha256": "85a1189ca176f8f5b3ab7cc9bd593223f3e0f6bd8ec8bde184db8077097cfc14"
+  },
+  {
+    "path": "android/assets/widget/L3D-01-high.png",
+    "sha256": "57c11fc7a71d31686db3ad8a6b66ba3d15b3999953dc3e4c9614052538a79019"
+  },
+  {
+    "path": "android/assets/widget/L3D-01-low.png",
+    "sha256": "9864c028b514053d48ec2e7b830fdf0982df533c0d8c6951b6bcdaa7672241de"
+  },
+  {
+    "path": "android/assets/widget/L3D-01-medium.png",
+    "sha256": "8eedd8c137d06fb7f942b6f9c887ee7bcd4ea66b11b06a151113b25e3a80a02f"
+  },
+  {
+    "path": "android/assets/widget/L3D-01-motion.png",
+    "sha256": "9c7ecc1872b12aee17feb12b6fe9a38a28e6cc287ba35ed3a968069969f52473"
+  },
+  {
+    "path": "android/assets/widget/M5-B-high.png",
+    "sha256": "1b860e08e2aff1452c70632e31fa6520b6b3940f9c590d7999d5ed5321089f79"
+  },
+  {
+    "path": "android/assets/widget/M5-B-low.png",
+    "sha256": "62ef73a759273b85db01b59ec24add9232ee694950520f9b8e82ed8c413d246a"
+  },
+  {
+    "path": "android/assets/widget/M5-B-medium.png",
+    "sha256": "d36abf6a3f9d84e3e073f8f69f6954edd1c10a4e0e792a5b8410524fc00fa546"
+  },
+  {
+    "path": "android/assets/widget/M5-B-motion.png",
+    "sha256": "a46ef552d06fdb359dada25c6aa9ca29153f15808e98f4489eef54820717cdfd"
+  }
+]

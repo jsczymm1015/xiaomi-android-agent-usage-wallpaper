@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "source": "agent_usage",
+  "provider": "Demo (synthetic)",
+  "observedAt": 1790812800,
+  "chartMode": "live",
+  "quota": {
+    "remaining": 76.5,
+    "resetsAt": 1791417600,
+    "window": "weekly",
+    "observedAt": 1790812800,
+    "source": "agent_report"
+  },
+  "daily": {
+    "observedAt": 1790812800,
+    "source": "agent_report",
+    "dateSemantics": "upstream dates unchanged; missing dates unknown",
+    "buckets": [
+      {"date": "2026-09-29", "tokens": 12000},
+      {"date": "2026-09-30", "tokens": 0}
+    ]
+  },
+  "resetCards": {
+    "availableCount": 3,
+    "expiresAt": 1893456000,
+    "expiryStatus": "earliest",
+    "observedAt": 1790812800,
+    "source": "agent_report"
+  }
+}

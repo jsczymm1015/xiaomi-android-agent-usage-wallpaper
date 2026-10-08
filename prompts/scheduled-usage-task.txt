@@ -1,0 +1,105 @@
+Agent 用量快照定时任务提示词（schemaVersion 1）
+
+把本文件交给 Codex、其他 Agent 或 LLM 前，先替换下列配置：
+工具目录：【APP_TOOLS_DIR，包含 desktop/snapshot_schema.py 与 desktop/publish_snapshot.py】
+统计库本地目录：【STATS_REPO_DIR，用户自己的独立统计库，不是 App 公开源码库】
+私有输出文件：【PRIVATE_OUTPUT_FILE，例如用户私有目录中的 usage-latest.json】
+实际 Agent / 服务名：【PROVIDER，1–32 字符】
+已授权的可信统计来源：【DATA_SOURCE，官方可读 API / 本机授权工具 / 用户提供的可信统计】
+运行计划：【SCHEDULE，例如每 30 分钟；按用户实际时区与偏好填写】
+
+本文件规定每轮任务行为，不会自行创建任务。只有用户明确授权创建/启用计划任务，
+且当前 Agent 或调度器具备定时能力时才建立任务；否则提供手动执行结果和可用调度步骤。
+没有用户授权，不创建仓库、不改远端、不扩大权限、不启动额外后台任务。
+
+每轮任务：
+
+1. 确认当前工具目录与统计库路径，检查统计库 origin、分支及工作区。
+   只操作用户指定的统计库与输出文件。不可把 App 公开源码库作为统计库。
+   GitHub / GitLab / Gitea / 其他 Git 远端均使用本机已有 Git 认证，
+   凭据由用户在本机管理。不得请求把令牌发到聊天，不读取无关凭据或把令牌写入代码/URL。
+
+2. 只读取用户授权、可以实际读取并验证的统计来源。
+   Codex 可在已登录本机使用其官方统计接口；其他 Agent 依照其实际官方可用能力。
+   不因为某个模型或套餐“通常有”某额度就推算，不用对话长度、Token 估计或模型回答猜数。
+   不抓取聊天，不绕过授权，不消费重置卡，不调用会改变账户额度的接口。
+   来源不可读时，相关指标填 null 并保持 unknown；不要生成看似真实的演示值。
+   如果连真实读取时间或来源都不能确认，报告失败并保留上一份成功文件，不发布伪快照。
+
+3. 只输出下列白名单结构。下面 JSON 是格式模板，1700000000 和 PROVIDER 都是占位示例，
+   必须替换为实际读取时刻 Unix 整秒和实际来源名；不得原样上传模板。
+   observedAt 为本轮实际成功读取统计的时间，相关子结构使用实际读取时间。
+   source 固定 agent_usage，子结构 source 固定 agent_report，chartMode 固定 live。
+   不要求 summary 或 rateLimits；不要加入原始响应、聊天、账户 ID、邮箱、令牌、卡 ID、
+   卡标题描述、登录文件、API key 或其他白名单之外内容。
+
+{
+  "schemaVersion": 1,
+  "source": "agent_usage",
+  "provider": "PROVIDER",
+  "observedAt": 1700000000,
+  "chartMode": "live",
+  "quota": {
+    "remaining": null,
+    "resetsAt": null,
+    "window": "unknown",
+    "observedAt": 1700000000,
+    "source": "agent_report"
+  },
+  "daily": {
+    "observedAt": 1700000000,
+    "source": "agent_report",
+    "dateSemantics": "upstream dates unchanged; missing dates unknown",
+    "buckets": null
+  },
+  "resetCards": {
+    "availableCount": null,
+    "expiresAt": null,
+    "expiryStatus": "unknown",
+    "observedAt": 1700000000,
+    "source": "agent_report"
+  }
+}
+
+4. 严格保持数值含义：
+   quota.remaining 仅为同一明确额度窗口的剩余百分比，数值 0..100 或 null。
+   quota.window 只能是 weekly / daily / monthly / other / unknown；保留真实窗口，
+   不能把日、周、月额度互换，也不能把不同服务窗口隐藏为可比较的统一值。
+   quota.resetsAt 是该窗口下一次重置的 Unix 秒，未知为 null。
+   时间传输使用 Unix 整秒（UTC 时间基准），不把毫秒或本地时间字符串填进时间戳。
+
+   daily.buckets 仅包含来源明确提供的 {"date":"YYYY-MM-DD","tokens":非负整数}。
+   date 保持上游原日期，不自行按另一时区拆天；未知日期缺失，不自动补成 0。
+   无法读取每日统计时 buckets 为 null；确有证据的零用量才写 tokens: 0。
+   dateSemantics 原样使用模板字符串，不用预测或模型估算补齐曲线。
+
+   resetCards.availableCount 是权威可用卡数，整数 0..2147483647 或 null。
+   付费余额、积分、Token 余额不是重置卡；可能截断的详情列表长度不能当权威数量。
+   expiresAt 是可用卡中最早已知期限的正 Unix 秒，未知为 null。
+   没有可信统计：availableCount=null, expiresAt=null, expiryStatus=unknown。
+   明确零卡：availableCount=0, expiresAt=null, expiryStatus=none。
+   完整详情且明确全部无期限：expiryStatus=no_expiry, expiresAt=null。
+   完整详情且有已知期限：expiryStatus=earliest，取最早期限。
+   详情不完整但有已知期限：expiryStatus=partial，取已知最早期限。
+   不完整且无已知期限：expiryStatus=unknown, expiresAt=null。
+   最早到期不是全部卡统一截止，不把旧卡期限向后推，不在期限到达后把其他卡归零。
+
+5. 生成时使用标准 JSON，禁止 NaN / Infinity、字符串伪装数字或布尔值伪装整数。
+   先完整写入 PRIVATE_OUTPUT_FILE 同一目录的临时文件并校验，成功后原子替换正式文件。
+   校验失败、数据源读取失败或文件写入失败时保留上次成功文件，报告实际失败原因。
+   在 APP_TOOLS_DIR 执行（替换占位路径，命令不包含任何令牌）：
+
+   python3 desktop/snapshot_schema.py "PRIVATE_OUTPUT_FILE"
+
+6. 校验通过后，只向用户指定统计仓库发布：
+
+   python3 desktop/publish_snapshot.py --repo-dir "STATS_REPO_DIR" --input "PRIVATE_OUTPUT_FILE"
+
+   使用现有远端与本机 Git 认证，不强推，不覆盖用户改动，不为解决冲突删除无关文件。
+   推送前核对远端变化；遇到权限、认证、冲突、真实测试失败或校验错误，停止发布并报告。
+   不更改仓库公开/私有状态；建议用户独立私有统计库，但不得擅自改已有仓库权限。
+
+7. 只报告必要结果：实际统计来源、读取截至时间、哪些指标未知、格式校验是否通过、
+   是否提交推送、远端提交标识与回读结果。不要打印原始账户响应或令牌。
+   远端上传成功不等于手机已同步；没有手机端证据时不能声称手机已经收到。
+   调度器未建立、电脑未开机、上游不可读等限制如实说明，不虚报定时执行或全平台兼容。
